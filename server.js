@@ -7,15 +7,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Configure AWS SDK with your credentials and region
+// Configure AWS SDK with environment variables
 AWS.config.update({
-    accessKeyId: 'your-access-key-id',
-    secretAccessKey: 'your-secret-access-key',
-    region: 'us-east-1'
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION
 });
 
 // Create an instance of the Chime service
-const chime = new AWS.Chime({ region: 'us-east-1' });
+const chime = new AWS.Chime({ region: process.env.AWS_REGION });
 
 // Set the endpoint for Chime SDK
 chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com/console');
@@ -26,7 +26,7 @@ app.post('/createMeeting', async (req, res) => {
     try {
         const meetingResponse = await chime.createMeeting({
             ClientRequestToken: clientRequestToken,
-            MediaRegion: 'us-east-1'
+            MediaRegion: process.env.AWS_REGION
         }).promise();
         res.json(meetingResponse);
     } catch (err) {
