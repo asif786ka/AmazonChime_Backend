@@ -2,7 +2,9 @@ const express = require('express');
 const AWS = require('aws-sdk');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { v4: uuidv4 } = require('uuid');
 
+// Initialize Express app
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -22,7 +24,7 @@ chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com/console'
 
 // Create Meeting
 app.post('/createMeeting', async (req, res) => {
-    const { clientRequestToken } = req.body;
+    const clientRequestToken = uuidv4(); // Generate a new UUID as the client request token
     try {
         const meetingResponse = await chime.createMeeting({
             ClientRequestToken: clientRequestToken,
@@ -48,5 +50,6 @@ app.post('/joinMeeting', async (req, res) => {
     }
 });
 
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
