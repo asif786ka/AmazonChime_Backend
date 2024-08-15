@@ -1,5 +1,3 @@
-require('dotenv').config();  // Add this line at the top of your file
-
 const express = require('express');
 const { ChimeClient, CreateMeetingCommand, CreateAttendeeCommand } = require('@aws-sdk/client-chime');
 const bodyParser = require('body-parser');
@@ -13,10 +11,10 @@ app.use(cors());
 
 // Load AWS credentials from environment variables
 const chimeClient = new ChimeClient({
-    region: process.env.AWS_REGION,
+    region: 'us-east-1',
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        accessKeyId: 'AKIASDKNR6VKGRUNYOH6',
+        secretAccessKey: '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',
     },
     endpoint: 'https://meetings-chime.us-east-1.amazonaws.com'
 });

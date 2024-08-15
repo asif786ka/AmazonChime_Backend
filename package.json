@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-chime": "^3.631.0",
+    "@aws-sdk/client-sts": "^3.631.0",
+    "@aws-sdk/credential-providers": "^3.631.0",
     "aws-sdk": "^2.1673.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
