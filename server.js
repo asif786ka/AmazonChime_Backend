@@ -11,10 +11,10 @@ app.use(cors());
 
 // Load AWS credentials from environment variables
 const chimeClient = new ChimeClient({
-    region: 'us-east-1',
+    region: process.env.AWS_REGION, // Load region from environment variables
     credentials: {
-        accessKeyId: 'AKIASDKNR6VKGRUNYOH6',
-        secretAccessKey: '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',
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Load access key ID from environment variables
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // Load secret access key from environment variables
     },
     endpoint: 'https://meetings-chime.us-east-1.amazonaws.com'
 });
