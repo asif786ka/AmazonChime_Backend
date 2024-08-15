@@ -32,7 +32,19 @@ app.post('/createMeeting', async (req, res) => {
         });
 
         const meetingResponse = await chimeClient.send(createMeetingCommand);
-        res.json(meetingResponse);
+
+        // Return the response in the specified format
+        res.json({
+            $metadata: meetingResponse.$metadata,
+            Meeting: {
+                ExternalMeetingId: meetingResponse.Meeting.ExternalMeetingId,
+                MediaPlacement: meetingResponse.Meeting.MediaPlacement,
+                MediaRegion: meetingResponse.Meeting.MediaRegion,
+                MeetingArn: meetingResponse.Meeting.MeetingArn,
+                MeetingId: meetingResponse.Meeting.MeetingId,
+                TenantIds: [] // Assuming it's an empty array as per your provided structure
+            }
+        });
     } catch (err) {
         console.error("Error creating meeting:", err);
         res.status(500).json({ error: err.message });
